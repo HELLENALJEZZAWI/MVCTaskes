@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Idea Form</title>
+    <style>
+        /* Your custom styling for the cards goes here */
+        .project-card {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 10px;
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <h1>Project Idea Form</h1>
+    <form id="projectForm">
+        <label for="subject">Subject:</label>
+        <input type="text" id="subject" required><br>
+
+        <label for="description">Description:</label>
+        <textarea id="description" rows="4" required></textarea><br>
+
+        <label for="userTypes">User Types:</label>
+        <input type="text" id="userTypes" required><br>
+
+        <label for="technology">Technology Used:</label>
+        <input type="text" id="technology" required><br>
+
+        <button type="button" onclick="submitForm()">Submit</button>
+    </form>
+
+    <div id="projectCards"></div>
+
+    <script>
+        function submitForm() {
+            const subject = document.getElementById('subject').value;
+            const description = document.getElementById('description').value;
+            const userTypes = document.getElementById('userTypes').value;
+            const technology = document.getElementById('technology').value;
+
+            // Store data in sessionStorage
+            sessionStorage.setItem('projectSubject', subject);
+            sessionStorage.setItem('projectDescription', description);
+            sessionStorage.setItem('projectUserTypes', userTypes);
+            sessionStorage.setItem('projectTechnology', technology);
+
+            // Render project cards
+            renderProjectCards();
+        }
+
+        function renderProjectCards() {
+            const subject = sessionStorage.getItem('projectSubject');
+            const description = sessionStorage.getItem('projectDescription');
+            const userTypes = sessionStorage.getItem('projectUserTypes');
+            const technology = sessionStorage.getItem('projectTechnology');
+
+            const projectCardsDiv = document.getElementById('projectCards');
+            const card = document.createElement('div');
+            card.classList.add('project-card');
+            card.innerHTML = `
+                <h3>${subject}</h3>
+                <p>${description}</p>
+                <p>User Types: ${userTypes}</p>
+                <p>Technology Used: ${technology}</p>
+            `;
+
+            projectCardsDiv.appendChild(card);
+        }
+    </script>
+</body>
+</html>
